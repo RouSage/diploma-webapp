@@ -29,8 +29,7 @@ def upload():
     if request.method == 'POST':
         if form.validate_on_submit():
             f = form.image.data
-            filename = secure_filename(f.filename)
-            f.save(os.path.join(app.root_path, filename))
+            f.save(os.path.join(app.root_path, secure_filename(f.filename)))
 
             flash("File '{}' uploaded!".format(filename))
 
