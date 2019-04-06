@@ -1,5 +1,6 @@
 import os
-from app import app
+from app import app, db
+from app.models import Image
 from flask import render_template, flash, redirect, request, url_for
 from app.forms import UploadImageForm
 from werkzeug.utils import secure_filename
@@ -29,9 +30,16 @@ def upload():
     if request.method == 'POST':
         if form.validate_on_submit():
             f = form.image.data
+            img_filename = secure_filename(f.filename)
+            # Save image to the disk
             f.save(os.path.join(app.root_path, secure_filename(f.filename)))
 
-            flash("File '{}' uploaded!".format(filename))
+            # Add a new Image entity to the database
+            image = Image(path=img_filename)
+            db.session.add(image)
+            db.session.commit()
+
+            flash("File '{}' uploaded!".format(img_filename))
 
             return redirect(url_for('index'))
 
