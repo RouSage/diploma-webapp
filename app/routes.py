@@ -1,67 +1,56 @@
 import os
+import uuid
 import torch
-from app import app, db
-from app.models import Image
-from app.utils import CNN, predict, prepare_image
-from app.forms import UploadImageForm
-from flask import render_template, flash, redirect, request, url_for
-from PIL import Image
+from PIL import Image as pil
+from flask import redirect, render_template, request, url_for
 from werkzeug.utils import secure_filename
+from app import app, db, model
+from app.forms import UploadImageForm
+from app.models import Image
+from app.utils import predict, prepare_image, CLASSES
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'username': 'RouSage'}
-    posts = [
-        {
-            'author': {'username': 'RouSage'},
-            'body': 'Post 1'
-        },
-        {
-            'author': {'username': 'Rous'},
-            'body': 'Test Post 2'
-        }
-    ]
-
-    return render_template('index.html', title='Home', user=user, posts=posts)
+    return render_template('index.html', title='Home')
 
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     form = UploadImageForm()
-    print(app.static_url_path)
     if request.method == 'POST':
         if form.validate_on_submit():
             f = form.image.data
-            img_filename = secure_filename(f.filename)
+            img_filename = str(uuid.uuid4()) + '.' + f.filename.split('.')[1]
+
             # Save image to the disk
-            f.save(os.path.join(app.static_folder,
-                                'img', secure_filename(f.filename)))
+            f.save(os.path.join(app.static_folder, 'img', img_filename))
 
             # Add a new Image entity to the database
             image = Image(path=img_filename)
             db.session.add(image)
             db.session.commit()
 
-            flash("File '{}' uploaded!".format(img_filename))
-
-            return redirect(url_for('index'))
+            return redirect(url_for('prediction', img_id=image.id))
 
     return render_template('upload.html', title='Upload Image', form=form)
 
 
-@app.route('/predict/<string:img_path>')
-def predict(img_path):
-    # Load exesting model to CPU and set model to evaluation mode
-    net = CNN()
-    net.load_state_dict(torch.load(
-        "./trained_models/net_15e_086acc.pt", map_location="cpu"))
-    net.eval()
-
-    # Prepare the image for prediction
-    img = Image.open("./test_images/cat_1.jpg")
-    test_img = prepare_image(img)
+@app.route('/prediction/<int:img_id>')
+def prediction(img_id):
+    # Get an Image entity from the database
+    image = Image.query.get_or_404(img_id)
 
     # Predict the image's class
-    predicted, probs = predict(net, test_img)
+    img = pil.open(os.path.join(app.static_folder, 'img', image.path))
+    img = prepare_image(img)
+    predicted, probs = predict(model=model, x=img)
+
+    # Update the image entity
+    image.predicted = CLASSES[predicted]
+    image.probability = torch.max(probs, dim=0)[0].item()
+    db.session.commit()
+
+    return render_template('predict.html', img_path='img/' + image.path,
+                           predicted=image.predicted, prob=image.probability * 100, probs=probs * 100)

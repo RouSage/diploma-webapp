@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% block content %}
+
+<img src="{{ url_for('static', filename=img_path) }}" alt="" />
+<p>Predicted: {{ predicted }}</p>
+<p>Probability: {{ prob }}</p>
+<p>Probabilities: {{ probs }}</p>
+
+{% endblock content %}

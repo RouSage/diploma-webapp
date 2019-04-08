@@ -78,20 +78,24 @@ class CNN(nn.Module):
 data_transforms = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+])
+
+CLASSES = ('plane', 'car', 'bird', 'cat', 'deer',
+           'dog', 'frog', 'horse', 'ship', 'truck')
 
 
 def predict(model, x):
     with torch.no_grad():
-        output=model(x)
-        _, predicted=torch.max(output, 1)
+        output = model(x)
+        _, predicted = torch.max(output, 1)
 
     return predicted, F.softmax(output, dim=1).view(-1)
 
 
 def prepare_image(img):
     # Resize the image to the required size
-    resized_img=img.resize((32, 32))
+    resized_img = img.resize((32, 32))
     # And apply data transformations
-    transformed_img=data_transforms(resized_img)
+    transformed_img = data_transforms(resized_img)
 
     return transformed_img.view(1, 3, 32, 32)
