@@ -1,13 +1,21 @@
 import torch
 import os
 from flask import Flask
-from config import BaseConfig
+import config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from app.utils import CNN
 
 app = Flask(__name__, static_folder='static')
-app.config.from_object(BaseConfig)
+
+env = os.environ.get('FLASK_ENV')
+if env == 'development':
+    app.config.from_object(config.DevelopmentConfig)
+elif env == 'production':
+    app.config.from_object(config.ProductionConfig)
+else:
+    app.config.from_object(config.BaseConfig)
+
 db = SQLAlchemy(app=app)
 migrate = Migrate(app=app, db=db)
 
