@@ -3,7 +3,6 @@ import uuid
 import torch
 from PIL import Image as pil
 from flask import redirect, render_template, request, url_for
-from werkzeug.utils import secure_filename
 from app import app, db, model
 from app.forms import UploadImageForm
 from app.models import Image
