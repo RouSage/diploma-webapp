@@ -1,0 +1,130 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f3f7f4;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+  display: block;
+}
+
+p {
+  margin: 0;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 300;
+  margin-top: 0;
+}
+
+.nav-header {
+  background-color: #a02d9b;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.navbar-items {
+  min-height: 80px;
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.navbar-items li {
+  display: flex;
+}
+.navbar-items a {
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  color: #ffffff;
+}
+.navbar-items a:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.navbar-items a.active {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.card {
+  background-color: #999999;
+  padding: 10px;
+  border-radius: 6px;
+}
+.card-secondary {
+  background-color: #b94056;
+  padding: 10px;
+  border-radius: 6px;
+}
+.card-title {
+  color: white;
+  font-size: 20px;
+}
+.card-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  text-align: justify;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  margin-top: 10px;
+  padding: 10px 5px;
+}
+.wrapper .project-description {
+  flex: 3;
+  margin-right: 15px;
+  padding-top: 10px;
+}
+.project-description p {
+  text-align: justify;
+  font-size: 16px;
+  color: #333333;
+}
+.project-description .project-description-title {
+  color: #261e33;
+}
+.project-description .project-description-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper .last-pred {
+  flex: 1 2;
+}
+
+.btn {
+  border: none;
+  border-radius: 3px;
+  background-color: #999999;
+  color: white;
+  padding: 12px 30px;
+  margin: 10px 1px;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.btn.btn-primary {
+  background-color: #a02d9b;
+}
+.btn.btn-primary:hover {
+  color: #ffffff;
+  background-color: #a02d9ac7;
+}
