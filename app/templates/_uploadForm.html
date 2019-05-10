@@ -1,0 +1,6 @@
+<form action="/index" method="post" enctype="multipart/form-data" id="uploadForm">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.image(class_="form-file-control") }}
+    </div>
+</form>

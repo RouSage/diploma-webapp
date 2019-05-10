@@ -9,14 +9,9 @@ from app.models import Image
 from app.utils import predict, prepare_image, CLASSES
 
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', title='Home')
-
-
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
     form = UploadImageForm()
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -32,8 +27,7 @@ def upload():
             db.session.commit()
 
             return redirect(url_for('prediction', img_id=image.id))
-
-    return render_template('upload.html', title='Upload Image', form=form)
+    return render_template('index.html', title='Главная', form=form)
 
 
 @app.route('/prediction/<int:img_id>')
@@ -51,5 +45,5 @@ def prediction(img_id):
     image.probability = torch.max(probs, dim=0)[0].item()
     db.session.commit()
 
-    return render_template('predict.html', img_path='img/' + image.path,
-                           predicted=image.predicted, prob=image.probability * 100, probs=probs * 100)
+    return render_template('predict.html', img_path='img/' + image.path, predicted=image.predicted,
+                           prob=image.probability * 100, probs=probs * 100, form=UploadImageForm())
