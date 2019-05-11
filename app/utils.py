@@ -107,7 +107,7 @@ def plot_probabilities(probs, filename):
     fig, ax = plt.subplots()
 
     y_pos = np.arange(len(probs))
-    ax.barh(y_pos, probs)
+    ax.barh(y_pos, probs, color='#a02d9b')
     ax.set_yticks(y_pos)
     ax.set_yticklabels(CLASSES)
     ax.invert_yaxis()
