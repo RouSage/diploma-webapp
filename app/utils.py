@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import transforms
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 class CNN(nn.Module):
@@ -99,3 +101,20 @@ def prepare_image(img):
     transformed_img = data_transforms(resized_img)
 
     return transformed_img.view(1, 3, 32, 32)
+
+
+def plot_probabilities(probs, filename):
+    fig, ax = plt.subplots()
+
+    y_pos = np.arange(len(probs))
+    ax.barh(y_pos, probs)
+    ax.set_yticks(y_pos)
+    ax.set_yticklabels(CLASSES)
+    ax.invert_yaxis()
+    ax.set_xlabel("Вероятности")
+    ax.set_ylabel("Классы")
+
+    fig.savefig(filename, format="png")
+    plt.close
+
+    return filename.split('\\')[-1]

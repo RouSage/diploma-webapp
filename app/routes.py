@@ -6,7 +6,7 @@ from flask import redirect, render_template, request, url_for
 from app import app, db, model
 from app.forms import UploadImageForm
 from app.models import Image
-from app.utils import predict, prepare_image, CLASSES
+from app.utils import predict, prepare_image, CLASSES, plot_probabilities
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -43,7 +43,16 @@ def prediction(img_id):
     # Update the image entity
     image.predicted = CLASSES[predicted]
     image.probability = torch.max(probs, dim=0)[0].item()
+    image.plot_path = plot_probabilities(probs, os.path.join(
+        app.static_folder, 'img', image.path.split('.')[0] + '_plot.png'))
     db.session.commit()
 
-    return render_template('predict.html', img_path='img/' + image.path, predicted=image.predicted,
-                           prob=image.probability * 100, probs=probs * 100, form=UploadImageForm())
+    result = {
+        'img_path': 'img/' + image.path,
+        'predicted': image.predicted,
+        'prob': image.probability * 100,
+        'probs': probs * 100,
+        'plot_path': 'img/' + image.plot_path
+    }
+
+    return render_template('predict.html', result=result, form=UploadImageForm())

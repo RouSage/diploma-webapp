@@ -1,8 +1,21 @@
 {% extends 'base.html' %} {% block content %}
 
-<img src="{{ url_for('static', filename=img_path) }}" alt="" />
-<p>Predicted: {{ predicted }}</p>
-<p>Probability: {{ prob }}</p>
-<p>Probabilities: {{ probs }}</p>
+<div class="container">
+    <div class="prediction-wrap">
+        <div class="prediction-img card">
+            <img src="{{ url_for('static', filename=result.img_path) }}" alt="{{ result.predicted }}"
+                title="{{ result.predicted }}" />
+            <div class="prediction-img__container">
+                {{ result.predicted }}
+            </div>
+        </div>
+        <div class="prediction-plot">
+            <img src="{{ url_for('static', filename=result.plot_path) }}" />
+            <!-- <p>Predicted: {{ predicted }}</p>
+        <p>Probability: {{ prob }}</p>
+        <p>Probabilities: {{ probs }}</p> -->
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

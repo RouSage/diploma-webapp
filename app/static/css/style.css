@@ -201,3 +201,27 @@ label {
 .hidden {
   display: none;
 }
+
+.prediction-wrap {
+  margin-top: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+}
+.prediction-wrap .prediction-img {
+  flex: 2;
+  margin-right: 15px;
+}
+.prediction-img img {
+  border-radius: 6px;
+  max-width: 100%;
+  height: auto;
+}
+.prediction-img .prediction-img__container {
+  text-align: center;
+  padding: 12px 30px;
+  color: white;
+}
+.prediction-wrap .prediction-plot {
+  flex: 2;
+}
