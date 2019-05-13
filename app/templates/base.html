@@ -10,7 +10,7 @@
   {% if title %}
   <title>{{ title }}</title>
   {% else %}
-  <title>Welcome</title>
+  <title>{{ _('Welcome') }}</title>
   {% endif %}
 </head>
 
@@ -23,10 +23,10 @@
       <nav>
         <ul class="navbar-items">
           <li>
-            <a href="{{ url_for('index') }}">Главная</a>
+            <a href="{{ url_for('index') }}">{{ _('Home') }}</a>
           </li>
           <li>
-            <a href="javascript:void" id="recognitionLink">Распознавание</a>
+            <a href="javascript:void" id="recognitionLink">{{ _('Prediction') }}</a>
           </li>
         </ul>
         <!-- /.navbar-items -->

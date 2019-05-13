@@ -2,7 +2,7 @@
 <div class="container">
   <div class="wrapper">
     <section class="project-description">
-      <h3 class="project-description-title">Описание проекта</h3>
+      <h3 class="project-description-title">{{ _('Project Description') }}</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet eos saepe
         assumenda sapiente omnis quidem corrupti soluta molestias? Voluptatibus,
@@ -17,12 +17,12 @@
         aperiam esse hic. Vero!
       </p>
       <div class="project-description-footer">
-        <button class="btn btn-primary" id="loadImageBtn">Загрузить изображение</button>
+        <button class="btn btn-primary" id="loadImageBtn">{{ _('Upload Image') }}</button>
       </div>
     </section>
     <aside class="last-pred card card-secondary">
       <h3 class="card-title">
-        Последние предсказания
+        {{ _('Latest Predictions') }}
       </h3>
       {% if latest %}
       <div class="last-pred-wrap">
@@ -41,7 +41,7 @@
       </div>
       {% else %}
       <p class="card-text">
-        Здесь ничего нет!
+        {{ _('There are no predictions yet!') }}
       </p>
       {% endif %}
     </aside>

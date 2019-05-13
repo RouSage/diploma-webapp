@@ -3,6 +3,7 @@ import uuid
 import torch
 from PIL import Image as pil
 from flask import redirect, render_template, request, url_for
+from flask_babel import _
 from app import app, db, model
 from app.forms import UploadImageForm
 from app.models import Image
@@ -27,7 +28,7 @@ def index():
             db.session.commit()
 
             return redirect(url_for('prediction', img_id=image.id))
-    return render_template('index.html', title='Главная', form=form, latest=get_latest_predictions())
+    return render_template('index.html', title=_('Home'), form=form, latest=get_latest_predictions())
 
 
 @app.route('/prediction/<int:img_id>')
@@ -55,7 +56,7 @@ def prediction(img_id):
         'plot_path': 'img/' + image.plot_path
     }
 
-    return render_template('predict.html', result=result, form=UploadImageForm())
+    return render_template('predict.html', title=_('Prediction'), result=result, form=UploadImageForm())
 
 
 def get_latest_predictions():

@@ -111,8 +111,8 @@ def plot_probabilities(probs, filename):
     ax.set_yticks(y_pos)
     ax.set_yticklabels(CLASSES)
     ax.invert_yaxis()
-    ax.set_xlabel("Вероятности")
-    ax.set_ylabel("Классы")
+    ax.set_xlabel("Accuracy")
+    ax.set_ylabel("Classes")
 
     fig.savefig(filename, format="png")
     plt.close

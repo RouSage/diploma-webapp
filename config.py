@@ -14,6 +14,8 @@ class BaseConfig(object):
     TRAINED_MODEL_NAME = os.environ.get(
         'TRAINED_MODEL_NAME', default='trained_model.pt')
 
+    LANGUAGES = ['en', 'ru']
+
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
