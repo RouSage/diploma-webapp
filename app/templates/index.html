@@ -20,13 +20,30 @@
         <button class="btn btn-primary" id="loadImageBtn">Загрузить изображение</button>
       </div>
     </section>
-    <aside class="last-pred card-secondary">
+    <aside class="last-pred card card-secondary">
       <h3 class="card-title">
         Последние предсказания
       </h3>
+      {% if latest %}
+      <div class="last-pred-wrap">
+        {% for pred in latest %}
+        <div class="last-pred-body">
+          <a href="{{ url_for('prediction', img_id=pred.id) }}" class="last-pred-body__img">
+            <img src="{{ url_for('static', filename='img/' + pred.path) }}" alt="{{ pred.predicted }}"
+              title="{{ pred.predicted }}">
+          </a>
+          <div class="last-pred-body__pred">
+            <span>{{ pred.predicted }}</span>
+            <span>{{ '%0.2f%%'| format(pred.probability * 100|float)}}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
       <p class="card-text">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, ratione?
+        Здесь ничего нет!
       </p>
+      {% endif %}
     </aside>
   </div>
 </div>

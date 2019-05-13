@@ -77,7 +77,7 @@ h3 {
   padding: 10px;
   border-radius: 6px;
 }
-.card-secondary {
+.card.card-secondary {
   background-color: #b94056;
 }
 .card-title {
@@ -137,6 +137,32 @@ h3 {
   -webkit-box-flex: 1;
   -ms-flex: 1 2;
   flex: 1 2;
+}
+.last-pred .last-pred-wrap {
+  display: flex;
+  flex-flow: column wrap;
+}
+.last-pred-wrap .last-pred-body {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.last-pred-body .last-pred-body__img {
+  flex: 2 1 70%;
+}
+.last-pred-body .last-pred-body__img img {
+  border-radius: 6px;
+  max-width: 100%;
+  height: auto;
+}
+.last-pred-body .last-pred-body__pred {
+  flex: 1 1 30%;
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  font-size: 14px;
+  padding-left: 5px;
 }
 
 .btn {
