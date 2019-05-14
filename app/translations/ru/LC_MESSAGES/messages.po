@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-05-13 17:23+0300\n"
+"POT-Creation-Date: 2019-05-14 15:56+0300\n"
 "PO-Revision-Date: 2019-05-13 17:24+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -35,15 +35,56 @@ msgstr "Добро пожаловать"
 msgid "Project Description"
 msgstr "Описание проекта"
 
-#: app/templates/index.html:20
+#: app/templates/index.html:7
+msgid ""
+"The goal of this project is to demonstrate the capabilities of "
+"convolutional neural networks in solving the\n"
+"        problem of pattern recognition."
+msgstr "Цель данного проекта — продемонстрировать возможности свёрточных нейронных сетей в решении задачи распознавания
+        образов."
+
+#: app/templates/index.html:15
+msgid ""
+"The convolutional neural network is a special architecture of artificial "
+"neural networks, proposed by Yan LeCun in 1988 and aimed at effective "
+"pattern recognition, is part of the technology of deep learning. The idea"
+" of ​​convolutional neural networks is the alternation of convolutional "
+"layers and pooling layers. The network structure is feedforward, "
+"essentially multi-layered. For training such a network, standard methods "
+"are used, most often the method of backpropagation. The activation "
+"function can be any, according to the choice of the researcher. The "
+"network architecture received its name because of the convolution "
+"operation, the essence of which is that each image fragment is multiplied"
+" by the convolution matrix (kernel) element by element, and the result is"
+" summed up and written to the similar position of the output image."
+msgstr "Свёрточная нейронная сеть — специальная архитектура искусственных нейронных сетей, предложенная Яном Лекуном в 1988 году и нацеленная на эффективное распознавание образов, входит в состав технологий глубокого обучения. Идея свёрточных нейронных сетей заключается в чередовании свёрточных слоёв и субдискретизирующих слоёв. Структура сети — однонаправленная, принципиально многослойная. Для обучения такой сети используются стандартные методы, чаще всего метод обратного распространения ошибки. В качестве функции активации нейронов может выступать любая, по выбору исследователя. Название архитектура сети получила из-за наличия операции свёртки, суть которой в том, что каждый фрагмент изображения умножается на матрицу (ядро) свёртки поэлементно, а результат суммируется и записывается в аналогичную позицию выходного изображения."
+
+#: app/templates/index.html:29
+msgid ""
+"Today, convolutional neural networks show the best results in various "
+"competitions related to the pattern recognition problem, which was the "
+"main reason for choosing this type of neural network for implementation "
+"in the project."
+msgstr "На сегодняшний день сверточные нейронные сети показывают лучшие результаты в разлчичных соревнованиях, связанных с задачей распознавания образов, что и послужило основной причиной выбора данного типа нейронной сети для реализации в проекте."
+
+#: app/templates/index.html:37
+msgid ""
+"To get started, click on the button below and upload the image for "
+"recognition. At the moment, the neural network can recognize such objects"
+" on images: PLANE, CAR, BIRD, CAT, DEER, DOG, FROG, HORSE, SHIP, TRUCK. "
+"After the image is uploaded, you will be redirected to the page with the "
+"result of the neural network prediction."
+msgstr "Для начала работы нажмите на кнопку ниже и загрузите изображение для распознавания. На данный момент нейронная сеть умеет распознавать на изображениях такие объекты: САМОЛЕТ, АВТОМОБИЛЬ, ПТИЦА, КОШКА, ОЛЕНЬ, СОБАКА, ЛЯГУШКА, ЛОШАДЬ, КОРАБЛЬ, ГРУЗОВИК. После загрузки изображения вы будете перенаправлены на страницу с результатом предсказания нейронной сети."
+
+#: app/templates/index.html:46
 msgid "Upload Image"
 msgstr "Загрузить изображение"
 
-#: app/templates/index.html:25
+#: app/templates/index.html:51
 msgid "Latest Predictions"
 msgstr "Последние предсказания"
 
-#: app/templates/index.html:44
+#: app/templates/index.html:70
 msgid "There are no predictions yet!"
 msgstr "Пока предсказаний нет!"
 
