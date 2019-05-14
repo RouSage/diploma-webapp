@@ -102,7 +102,7 @@ h3 {
   -ms-flex-align: start;
   align-items: flex-start;
   margin-top: 10px;
-  padding: 10px 5px;
+  padding: 10px;
 }
 .wrapper .project-description {
   -webkit-box-flex: 3;
@@ -130,9 +130,6 @@ h3 {
   -ms-flex-pack: center;
   justify-content: center;
 }
-.project-description .project-description-footer form {
-  margin-top: 10px;
-}
 .wrapper .last-pred {
   -webkit-box-flex: 1;
   -ms-flex: 1 2;
@@ -157,7 +154,6 @@ h3 {
 }
 .last-pred-body .last-pred-body__pred {
   flex: 1 1 30%;
-  display: block;
   text-align: center;
   text-transform: uppercase;
   color: white;
@@ -227,7 +223,7 @@ label {
 }
 
 .prediction-wrap {
-  margin-top: 10px;
+  padding: 10px;
   display: flex;
   flex-flow: row nowrap;
 }
@@ -257,4 +253,49 @@ label {
   border-radius: 6px;
   max-width: 100%;
   height: auto;
+}
+
+@media only screen and (max-width: 1000px) {
+  .container {
+    max-width: 900px;
+  }
+}
+
+@media only screen and (max-width: 830px) {
+  .last-pred-wrap .last-pred-body {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .last-pred-body .last-pred-body__pred span {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .prediction-wrap {
+    flex-flow: column nowrap;
+  }
+  .prediction-wrap .prediction-img {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .wrapper {
+    flex-flow: column nowrap;
+  }
+
+  .last-pred-wrap .last-pred-body {
+    flex-flow: row nowrap;
+    margin-bottom: 10px;
+  }
+  .last-pred-body .last-pred-body__img {
+    flex: 2 1 75%;
+  }
+  .last-pred-body .last-pred-body__pred {
+    flex: 2 1 25%;
+  }
 }
