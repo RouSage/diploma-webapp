@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
@@ -36,6 +36,7 @@
   <!-- /.header -->
   <main role="main">
     {% block content %} {% endblock content %}
+    {% include '_footer.html' %}
   </main>
   <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
