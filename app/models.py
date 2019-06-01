@@ -45,7 +45,7 @@ class Classes(db.Model):
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     predictions = db.relationship(
-        'Prediction', uselist=True, backref='class', lazy='joined')
+        'Prediction', uselist=True, backref='pred_class', lazy='joined')
 
     def __repr__(self):
         return '<Classes {}>'.format(self.name)
