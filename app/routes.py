@@ -6,7 +6,7 @@ from flask import redirect, render_template, request, url_for
 from flask_babel import _
 from app import app, db, model
 from app.forms import UploadImageForm
-from app.models import Image
+from app.models import Image, Plot, Prediction, Classes
 from app.utils import predict, prepare_image, CLASSES, plot_probabilities
 
 
@@ -36,24 +36,31 @@ def prediction(img_id):
     # Get an Image entity from the database
     image = Image.query.get_or_404(img_id)
 
-    if image.predicted == None:
+    if image.prediction == None:
         # Predict the image's class
         img = pil.open(os.path.join(app.static_folder, 'img', image.path))
         img = prepare_image(img)
         predicted, probs = predict(model=model, x=img)
 
-        # Update the image entity
-        image.predicted = CLASSES[predicted]
-        image.probability = torch.max(probs, dim=0)[0].item()
-        image.plot_path = plot_probabilities(probs, os.path.join(
-            app.static_folder, 'img', image.path.split('.')[0] + '_plot.png'))
+        # Get Class from DB
+        pred_class = Classes.query.get(predicted.item() + 1)
+        # Create new Prediction entity
+        prediction_data = Prediction(probability=torch.max(probs, dim=0)[
+            0].item(), class_id=pred_class.id, image_id=image.id)
+        # Create new Plot entity
+        plot = Plot(path=plot_probabilities(probs, os.path.join(
+            app.static_folder, 'img', image.path.split('.')[0] + '_plot.png')), image_id=image.id)
+
+        # Add all new entities
+        db.session.add(prediction_data)
+        db.session.add(plot)
         db.session.commit()
 
     result = {
         'img_path': 'img/' + image.path,
-        'predicted': image.predicted,
-        'prob': image.probability * 100,
-        'plot_path': 'img/' + image.plot_path
+        'predicted': image.prediction.pred_class.name,
+        'prob': image.prediction.probability * 100,
+        'plot_path': 'img/' + image.plot.path
     }
 
     return render_template('predict.html', title=_('Prediction'), result=result, form=UploadImageForm())
@@ -61,4 +68,4 @@ def prediction(img_id):
 
 def get_latest_predictions():
     return Image.query.filter(
-        Image.predicted != None).order_by(Image.created.desc())[:3]
+        Image.prediction != None).order_by(Image.created.desc())[:3]
