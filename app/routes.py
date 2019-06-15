@@ -28,7 +28,7 @@ def index():
             db.session.commit()
 
             return redirect(url_for('prediction', img_id=image.id))
-    return render_template('index.html', title=_('Home'), form=form, latest=get_latest_predictions())
+    return render_template('index.html', title=_('Home'), form=form, latest=get_latest_predictions(), c=CLASSES)
 
 
 @app.route('/prediction/<int:img_id>')
@@ -58,7 +58,7 @@ def prediction(img_id):
 
     result = {
         'img_path': 'img/' + image.path,
-        'predicted': image.prediction.pred_class.name,
+        'predicted': CLASSES[image.prediction.class_id - 1],
         'prob': image.prediction.probability * 100,
         'plot_path': 'img/' + image.plot.path
     }

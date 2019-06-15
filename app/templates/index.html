@@ -33,7 +33,7 @@
               title="{{ pred.prediction.pred_class.name }}">
           </a>
           <div class="last-pred-body__pred">
-            <span>{{ pred.prediction.pred_class.name }}</span>
+            <span>{{ _('%(predicted)s', predicted=c[pred.prediction.class_id - 1]) }}</span>
             <span>{{ '%0.2f%%'| format(pred.prediction.probability * 100|float)}}</span>
           </div>
         </div>
