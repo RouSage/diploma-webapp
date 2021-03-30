@@ -96,12 +96,10 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
 ENV/
-env.bak/
 venv.bak/
 
 # Spyder project settings
@@ -124,4 +122,4 @@ dmypy.json
 
 app.db
 
-app/static/img/
+app/static/img/*
