@@ -4,6 +4,7 @@ import torch.nn.functional as F
 from torchvision import transforms
 import matplotlib.pyplot as plt
 import numpy as np
+from flask_babel import lazy_gettext as _l
 
 
 class CNN(nn.Module):
@@ -82,8 +83,8 @@ data_transforms = transforms.Compose([
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ])
 
-CLASSES = ('plane', 'car', 'bird', 'cat', 'deer',
-           'dog', 'frog', 'horse', 'ship', 'truck')
+CLASSES = (_l('plane'), _l('car'), _l('bird'), _l('cat'), _l('deer'),
+           _l('dog'), _l('frog'), _l('horse'), _l('ship'), _l('truck'))
 
 
 def predict(model, x):

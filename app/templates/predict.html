@@ -6,7 +6,8 @@
             <img src="{{ url_for('static', filename=result.img_path) }}" alt="{{ result.predicted }}"
                 title="{{ result.predicted }}" />
             <div class="prediction-img__container">
-                <span>{{ _('Prediction') }}: <span class="predicted-class">{{ result.predicted }}</span>
+                <span>{{ _('Prediction') }}: <span
+                        class="predicted-class">{{ _('%(predicted)s', predicted=result.predicted) }}</span>
                 </span>
                 <span>{{ _('Accuracy') }}: {{ '%0.4f'| format(result.prob|float)}}</span>
             </div>
