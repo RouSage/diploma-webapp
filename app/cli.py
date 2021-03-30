@@ -1,6 +1,32 @@
 import os
+
 import click
-from app import app
+
+from app import app, db
+from app.models import Classes
+
+
+@app.cli.command("seed")
+def seed():
+    classes = [
+        Classes(id=1, name="plane"),
+        Classes(id=2, name="car"),
+        Classes(id=3, name="bird"),
+        Classes(id=4, name="cat"),
+        Classes(id=5, name="deer"),
+        Classes(id=6, name="dog"),
+        Classes(id=7, name="frog"),
+        Classes(id=8, name="horse"),
+        Classes(id=9, name="ship"),
+        Classes(id=10, name="truck"),
+    ]
+    classes_query = Classes.query.all()
+    if(len(classes_query) != 10):
+        db.session.query(Classes).delete()
+        for c in classes:
+            db.session.add(c)
+
+    db.session.commit()
 
 
 @app.cli.group()
