@@ -1,10 +1,12 @@
 import os
+
+import config
 import torch
 from flask import Flask, request
+from flask_babel import Babel
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from flask_babel import Babel
-import config
+
 from app.utils import CNN
 
 app = Flask(__name__, static_folder='static')
