@@ -123,3 +123,5 @@ dmypy.json
 app.db
 
 app/static/img/*
+
+*.pt

@@ -1,96 +1,23 @@
-import os
-
 import numpy as np
 import torch
 
 from ..config import yolov3_config_voc as cfg
-from ..utils.data_augment import *
-from ..utils.datasets import *
-from ..utils.tools import *
-from ..utils.visualize import *
-from .voc_eval import voc_eval
+from ..utils.data_augment import Resize
+from ..utils.tools import nms, xywh2xyxy
 
 
 class Evaluator(object):
-    def __init__(self, model, visiual=True):
+    def __init__(self, model):
         self.classes = cfg.DATA["CLASSES"]
-        #! Save results to tmp folder not in Google Drive
-        self.pred_result_path = os.path.join(cfg.TMP_RESULTS_PATH, 'results')
-        self.val_data_path = os.path.join(
-            cfg.DATA_PATH, 'VOCtest-2007', 'VOCdevkit', 'VOC2007')
         self.conf_thresh = cfg.TEST["CONF_THRESH"]
         self.nms_thresh = cfg.TEST["NMS_THRESH"]
         self.val_shape = cfg.TEST["TEST_IMG_SIZE"]
 
-        self.__visiual = visiual
-        self.__visual_imgs = 0
-
         self.model = model
         self.device = next(model.parameters()).device
 
-    # def APs_voc(self, multi_test=False, flip_test=False):
-    #     img_inds_file = os.path.join(
-    #         self.val_data_path, 'ImageSets', 'Main', 'test.txt')
-    #     with open(img_inds_file, 'r') as f:
-    #         lines = f.readlines()
-    #         img_inds = [line.strip() for line in lines]
-
-    #     if os.path.exists(self.pred_result_path):
-    #         shutil.rmtree(self.pred_result_path)
-    #     os.mkdir(self.pred_result_path)
-
-    #     for img_ind in tqdm(img_inds):
-    #         img_path = os.path.join(
-    #             self.val_data_path, 'JPEGImages', img_ind + '.jpg')
-    #         img = cv2.imread(img_path)
-    #         bboxes_prd = self.get_bbox(img, multi_test, flip_test)
-
-    #         if bboxes_prd.shape[0] != 0 and self.__visiual and self.__visual_imgs < 100:
-    #             boxes = bboxes_prd[..., :4]
-    #             class_inds = bboxes_prd[..., 5].astype(np.int32)
-    #             scores = bboxes_prd[..., 4]
-
-    #             visualize_boxes(image=img, boxes=boxes, labels=class_inds,
-    #                             probs=scores, class_labels=self.classes)
-    #             path = os.path.join(cfg.TMP_RESULTS_PATH,
-    #                                 "results/{}.jpg".format(self.__visual_imgs))
-    #             cv2.imwrite(path, img)
-
-    #             self.__visual_imgs += 1
-
-    #         for bbox in bboxes_prd:
-    #             coor = np.array(bbox[:4], dtype=np.int32)
-    #             score = bbox[4]
-    #             class_ind = int(bbox[5])
-
-    #             class_name = self.classes[class_ind]
-    #             score = '%.4f' % score
-    #             xmin, ymin, xmax, ymax = map(str, coor)
-    #             s = ' '.join([img_ind, score, xmin, ymin, xmax, ymax]) + '\n'
-
-    #             with open(os.path.join(self.pred_result_path, 'comp4_det_test_' + class_name + '.txt'), 'a') as f:
-    #                 f.write(s)
-
-    #     return self.__calc_APs()
-
-    def get_bbox(self, img, multi_test=False, flip_test=False):
-        if multi_test:
-            test_input_sizes = range(320, 640, 96)
-            bboxes_list = []
-            for test_input_size in test_input_sizes:
-                valid_scale = (0, np.inf)
-                bboxes_list.append(self.__predict(
-                    img, test_input_size, valid_scale))
-                if flip_test:
-                    bboxes_flip = self.__predict(
-                        img[:, ::-1], test_input_size, valid_scale)
-                    bboxes_flip[:, [0, 2]] = img.shape[1] - \
-                        bboxes_flip[:, [2, 0]]
-                    bboxes_list.append(bboxes_flip)
-            bboxes = np.row_stack(bboxes_list)
-        else:
-            bboxes = self.__predict(img, self.val_shape, (0, np.inf))
-
+    def get_bbox(self, img):
+        bboxes = self.__predict(img, self.val_shape, (0, np.inf))
         bboxes = nms(bboxes, self.conf_thresh, self.nms_thresh)
 
         return bboxes
@@ -116,7 +43,7 @@ class Evaluator(object):
 
     def __convert_pred(self, pred_bbox, test_input_size, org_img_shape, valid_scale):
         """
-        预测框进行过滤，去除尺度不合理的框
+        The prediction box is filtered to remove the boxes with unreasonable scales
         """
         pred_coor = xywh2xyxy(pred_bbox[:, :4])
         pred_conf = pred_bbox[:, 4]
@@ -162,27 +89,3 @@ class Evaluator(object):
             [coors, scores[:, np.newaxis], classes[:, np.newaxis]], axis=-1)
 
         return bboxes
-
-    # def __calc_APs(self, iou_thresh=0.5, use_07_metric=False):
-    #     """
-    #     计算每个类别的ap值
-    #     :param iou_thresh:
-    #     :param use_07_metric:
-    #     :return:dict{cls:ap}
-    #     """
-    #     filename = os.path.join(self.pred_result_path,
-    #                             'comp4_det_test_{:s}.txt')
-    #     #! Save cache straight to Google Drive unlike everything else
-    #     cachedir = os.path.join(cfg.PROJECT_PATH, 'data', 'cache')
-    #     annopath = os.path.join(self.val_data_path, 'Annotations', '{:s}.xml')
-    #     imagesetfile = os.path.join(
-    #         self.val_data_path, 'ImageSets', 'Main', 'test.txt')
-    #     APs = {}
-    #     for i, cls in enumerate(self.classes):
-    #         R, P, AP = voc_eval(
-    #             filename, annopath, imagesetfile, cls, cachedir, iou_thresh, use_07_metric)
-    #         APs[cls] = AP
-    #     if os.path.exists(cachedir):
-    #         shutil.rmtree(cachedir)
-
-    #     return APs

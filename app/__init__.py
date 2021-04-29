@@ -7,7 +7,7 @@ from flask_babel import Babel
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from app.utils import CNN
+from app.yolov3.model.yolov3_s import Yolov3_S
 
 app = Flask(__name__, static_folder='static')
 
@@ -23,12 +23,10 @@ db = SQLAlchemy(app=app)
 migrate = Migrate(app=app, db=db)
 babel = Babel(app=app)
 
-# Load exesting model to CPU and set model to evaluation mode
-model = CNN()
-model.load_state_dict(torch.load(
-    f=os.path.join(app.static_folder, app.config['TRAINED_MODEL_NAME']),
-    map_location='cpu'))
-model.eval()
+# Load exesting model to CPU and load weights
+model = Yolov3_S()
+model.load_state_dict(torch.load(f=os.path.join(
+    app.static_folder, app.config['TRAINED_MODEL_NAME']), map_location='cpu'))
 
 
 @babel.localeselector

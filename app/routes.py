@@ -1,6 +1,8 @@
 import os
 import uuid
+from os import path
 
+import cv2
 import torch
 from flask import redirect, render_template, request, url_for
 from flask_babel import _
@@ -9,7 +11,8 @@ from PIL import Image as pil
 from app import app, db, model
 from app.forms import UploadImageForm
 from app.models import Classes, Image, Plot, Prediction
-from app.utils import CLASSES, plot_probabilities, predict, prepare_image
+from app.tester import Tester
+from app.utils import CLASSES
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -40,22 +43,32 @@ def prediction(img_id):
 
     if image.prediction == None:
         # Predict the image's class
-        img = pil.open(os.path.join(app.static_folder, 'img', image.path))
-        img = prepare_image(img)
-        predicted, probs = predict(model=model, x=img)
+        img = cv2.imread(os.path.join(app.static_folder, 'img', image.path))
+        pred_img, predicted, probs = Tester(model=model, img=img).test()
+        # predicted, probs = predict(model=model, x=img)
 
-        # Get Class from DB
-        pred_class = Classes.query.get(predicted.item() + 1)
-        # Create new Prediction entity
-        prediction_data = Prediction(probability=torch.max(probs, dim=0)[
-            0].item(), class_id=pred_class.id, image_id=image.id)
+        # Save pred_img to the disk
+        pred_img_filename = f"{image.path.split('.')[0]}_pred.{image.path.split('.')[1]}"
+        cv2.imwrite(os.path.join(app.static_folder,
+                    'img', pred_img_filename), pred_img)
+
+        # Add pred_img to the DB
+        image = Image(path=pred_img_filename)
+
+        # Get all Class from DB
+        classes = Classes.query.all()
+        # Create new Prediction entity for each object on the given image
+        for prob, pred in zip(probs, predicted):
+            prediction_data = Prediction(
+                probability=prob, class_id=classes[pred].id, image_id=image.id)
+            db.session.add(prediction_data)
         # Create new Plot entity
-        plot = Plot(path=plot_probabilities(probs, os.path.join(
-            app.static_folder, 'img', image.path.split('.')[0] + '_plot.png')), image_id=image.id)
+        # plot = Plot(path=plot_probabilities(probs, os.path.join(
+        #     app.static_folder, 'img', image.path.split('.')[0] + '_plot.png')), image_id=image.id)
 
         # Add all new entities
-        db.session.add(prediction_data)
-        db.session.add(plot)
+        # db.session.add(plot)
+        db.session.add(image)
         db.session.commit()
 
     result = {
