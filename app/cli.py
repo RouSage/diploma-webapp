@@ -9,16 +9,26 @@ from app.models import Classes
 @app.cli.command("seed")
 def seed():
     classes = [
-        Classes(id=1, name="plane"),
-        Classes(id=2, name="car"),
+        Classes(id=1, name="aeroplane"),
+        Classes(id=2, name="bicycle"),
         Classes(id=3, name="bird"),
-        Classes(id=4, name="cat"),
-        Classes(id=5, name="deer"),
-        Classes(id=6, name="dog"),
-        Classes(id=7, name="frog"),
-        Classes(id=8, name="horse"),
-        Classes(id=9, name="ship"),
-        Classes(id=10, name="truck"),
+        Classes(id=4, name="boat"),
+        Classes(id=5, name="bottle"),
+        Classes(id=6, name="bus"),
+        Classes(id=7, name="car"),
+        Classes(id=8, name="cat"),
+        Classes(id=9, name="chair"),
+        Classes(id=10, name="cow"),
+        Classes(id=11, name="diningtale"),
+        Classes(id=12, name="dog"),
+        Classes(id=13, name="horse"),
+        Classes(id=14, name="motorbike"),
+        Classes(id=15, name="person"),
+        Classes(id=16, name="pottedplant"),
+        Classes(id=17, name="sheep"),
+        Classes(id=18, name="sofa"),
+        Classes(id=19, name="train"),
+        Classes(id=20, name="tvmonitor"),
     ]
     classes_query = Classes.query.all()
     if(len(classes_query) != 10):
