@@ -10,9 +10,9 @@ from PIL import Image as pil
 
 from app import app, db, model
 from app.forms import UploadImageForm
-from app.models import Classes, Image, Plot, Prediction
+from app.models import Classes, Image, Prediction
 from app.tester import Tester
-from app.utils import CLASSES
+from app.yolov3.config import yolov3_config_voc as cfg
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -33,7 +33,7 @@ def index():
             db.session.commit()
 
             return redirect(url_for('prediction', img_id=image.id))
-    return render_template('index.html', title=_('Home'), form=form, latest=get_latest_predictions(), c=CLASSES)
+    return render_template('index.html', title=_('Home'), form=form, latest=get_latest_predictions(), c=cfg.DATA['CLASSES'])
 
 
 @app.route('/prediction/<int:img_id>')
@@ -73,7 +73,7 @@ def prediction(img_id):
 
     result = {
         'img_path': 'img/' + image.path,
-        'predicted': CLASSES[image.prediction.class_id - 1],
+        'predicted': cfg.DATA['CLASSES'][image.prediction.class_id - 1],
         'prob': image.prediction.probability * 100,
         'plot_path': 'img/' + image.plot.path
     }
