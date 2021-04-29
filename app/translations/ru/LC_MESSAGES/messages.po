@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-06-15 19:01+0300\n"
+"POT-Creation-Date: 2021-04-29 17:13+0300\n"
 "PO-Revision-Date: 2019-05-13 17:24+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -17,55 +17,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.7.0\n"
+"Generated-By: Babel 2.9.1\n"
 
-#: app/routes.py:31 app/templates/base.html:26
+#: app/routes.py:36 app/templates/base.html:26
 msgid "Home"
 msgstr "Главная"
 
-#: app/routes.py:67 app/templates/base.html:29 app/templates/predict.html:9
+#: app/routes.py:81 app/templates/base.html:29 app/templates/predict.html:9
 msgid "Prediction"
 msgstr "Предсказание"
-
-#: app/utils.py:86
-msgid "plane"
-msgstr "самолёт"
-
-#: app/utils.py:86
-msgid "car"
-msgstr "машина"
-
-#: app/utils.py:86
-msgid "bird"
-msgstr "птица"
-
-#: app/utils.py:86
-msgid "cat"
-msgstr "кошка"
-
-#: app/utils.py:86
-msgid "deer"
-msgstr "олень"
-
-#: app/utils.py:87
-msgid "dog"
-msgstr "собака"
-
-#: app/utils.py:87
-msgid "frog"
-msgstr "лягушка"
-
-#: app/utils.py:87
-msgid "horse"
-msgstr "лошадь"
-
-#: app/utils.py:87
-msgid "ship"
-msgstr "корабль"
-
-#: app/utils.py:87
-msgid "truck"
-msgstr "грузовик"
 
 #: app/templates/_footer.html:4
 msgid "Author"
@@ -160,14 +120,14 @@ msgstr "Загрузить изображение"
 msgid "Latest Predictions"
 msgstr "Последние предсказания"
 
-#: app/templates/index.html:44
-msgid "There are no predictions yet!"
-msgstr "Пока предсказаний нет!"
-
-#: app/templates/predict.html:10
+#: app/templates/index.html:36 app/templates/predict.html:10
 #, python-format
 msgid "%(predicted)s"
 msgstr ""
+
+#: app/templates/index.html:44
+msgid "There are no predictions yet!"
+msgstr "Пока предсказаний нет!"
 
 #: app/templates/predict.html:12
 msgid "Accuracy"
@@ -176,4 +136,96 @@ msgstr "Точность"
 #: app/templates/predict.html:16
 msgid "Plot image not found"
 msgstr "Изображение графика не найдено"
+
+#: app/yolov3/config/yolov3_config_voc.py:3
+#, fuzzy
+msgid "aeroplane"
+msgstr "самолёт"
+
+#: app/yolov3/config/yolov3_config_voc.py:3
+msgid "bicycle"
+msgstr "велосипед"
+
+#: app/yolov3/config/yolov3_config_voc.py:3
+msgid "bird"
+msgstr "птица"
+
+#: app/yolov3/config/yolov3_config_voc.py:3
+msgid "boat"
+msgstr "лодка"
+
+#: app/yolov3/config/yolov3_config_voc.py:3
+msgid "bottle"
+msgstr "бутылка"
+
+#: app/yolov3/config/yolov3_config_voc.py:3
+msgid "bus"
+msgstr "автобус"
+
+#: app/yolov3/config/yolov3_config_voc.py:4
+msgid "car"
+msgstr "машина"
+
+#: app/yolov3/config/yolov3_config_voc.py:4
+msgid "cat"
+msgstr "кошка"
+
+#: app/yolov3/config/yolov3_config_voc.py:4
+#, fuzzy
+msgid "chair"
+msgstr "стул"
+
+#: app/yolov3/config/yolov3_config_voc.py:4
+msgid "cow"
+msgstr "корова"
+
+#: app/yolov3/config/yolov3_config_voc.py:4
+msgid "diningtable"
+msgstr "обеденный стол"
+
+#: app/yolov3/config/yolov3_config_voc.py:5
+msgid "dog"
+msgstr "собака"
+
+#: app/yolov3/config/yolov3_config_voc.py:5
+msgid "horse"
+msgstr "лошадь"
+
+#: app/yolov3/config/yolov3_config_voc.py:6
+msgid "motorbike"
+msgstr "мотоцикл"
+
+#: app/yolov3/config/yolov3_config_voc.py:6
+msgid "person"
+msgstr "человек"
+
+#: app/yolov3/config/yolov3_config_voc.py:6
+msgid "pottedplant"
+msgstr "растение"
+
+#: app/yolov3/config/yolov3_config_voc.py:7
+#, fuzzy
+msgid "sheep"
+msgstr "корабль"
+
+#: app/yolov3/config/yolov3_config_voc.py:7
+msgid "sofa"
+msgstr "диван"
+
+#: app/yolov3/config/yolov3_config_voc.py:8
+msgid "train"
+msgstr "поезд"
+
+#: app/yolov3/config/yolov3_config_voc.py:8
+msgid "tvmonitor"
+msgstr "монитор"
+
+#~ msgid "deer"
+#~ msgstr "олень"
+
+#~ msgid "frog"
+#~ msgstr "лягушка"
+
+#~ msgid "truck"
+#~ msgstr "грузовик"
 

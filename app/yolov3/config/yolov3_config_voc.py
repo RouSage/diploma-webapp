@@ -1,7 +1,11 @@
-DATA = {"CLASSES": ['aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
-                    'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse',
-                    'motorbike', 'person', 'pottedplant', 'sheep', 'sofa',
-                    'train', 'tvmonitor'],
+from flask_babel import lazy_gettext as _l
+
+DATA = {"CLASSES": [_l('aeroplane'), _l('bicycle'), _l('bird'), _l('boat'), _l('bottle'), _l('bus'),
+                    _l('car'), _l('cat'), _l('chair'), _l('cow'), _l(
+                        'diningtable'), _l('dog'), _l('horse'),
+                    _l('motorbike'), _l('person'), _l(
+                        'pottedplant'), _l('sheep'), _l('sofa'),
+                    _l('train'), _l('tvmonitor')],
         "NUM": 20}
 
 # model
