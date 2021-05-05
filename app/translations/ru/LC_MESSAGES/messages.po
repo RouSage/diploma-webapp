@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-29 17:13+0300\n"
+"POT-Creation-Date: 2021-05-05 12:49+0300\n"
 "PO-Revision-Date: 2019-05-13 17:24+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Home"
 msgstr "Главная"
 
-#: app/routes.py:81 app/templates/base.html:29 app/templates/predict.html:9
+#: app/routes.py:77 app/templates/base.html:29
 msgid "Prediction"
 msgstr "Предсказание"
 
@@ -48,28 +48,35 @@ msgid "Project Description"
 msgstr "Описание проекта"
 
 #: app/templates/index.html:7
+#, fuzzy
 msgid ""
 "The goal of this project is to demonstrate the capabilities of "
-"convolutional neural networks in solving the\n"
+"convolutional neural networks in solving\n"
+"        the\n"
 "        problem of pattern recognition."
 msgstr ""
 "Цель данного проекта — продемонстрировать возможности свёрточных "
 "нейронных сетей в решении задачи распознавания образов."
 
-#: app/templates/index.html:11
+#: app/templates/index.html:12
+#, fuzzy
 msgid ""
 "The convolutional neural network is a special architecture of artificial "
-"neural networks, proposed by Yan LeCun in 1988 and aimed at effective "
-"pattern recognition, is part of the technology of deep learning. The idea"
-" of ​​convolutional neural networks is the alternation of convolutional "
-"layers and pooling layers. The network structure is feedforward, "
-"essentially multi-layered. For training such a network, standard methods "
-"are used, most often the method of backpropagation. The activation "
-"function can be any, according to the choice of the researcher. The "
-"network architecture received its name because of the convolution "
-"operation, the essence of which is that each image fragment is multiplied"
-" by the convolution matrix (kernel) element by element, and the result is"
-" summed up and written to the similar position of the output image."
+"neural networks, proposed by Yan\n"
+"        LeCun in 1988 and aimed at effective pattern recognition, is part"
+" of the technology of deep learning. The idea\n"
+"        of ​​convolutional neural networks is the alternation of "
+"convolutional layers and pooling layers. The network\n"
+"        structure is feedforward, essentially multi-layered. For training"
+" such a network, standard methods are used,\n"
+"        most often the method of backpropagation. The activation function"
+" can be any, according to the choice of the\n"
+"        researcher. The network architecture received its name because of"
+" the convolution operation, the essence of\n"
+"        which is that each image fragment is multiplied by the "
+"convolution matrix (kernel) element by element, and the\n"
+"        result is summed up and written to the similar position of the "
+"output image."
 msgstr ""
 "Свёрточная нейронная сеть — специальная архитектура искусственных "
 "нейронных сетей, предложенная Яном Лекуном в 1988 году и нацеленная на "
@@ -85,25 +92,29 @@ msgstr ""
 "результат суммируется и записывается в аналогичную позицию выходного "
 "изображения."
 
-#: app/templates/index.html:14
+#: app/templates/index.html:22
+#, fuzzy
 msgid ""
 "Today, convolutional neural networks show the best results in various "
-"competitions related to the pattern recognition problem, which was the "
-"main reason for choosing this type of neural network for implementation "
-"in the project."
+"competitions related to the pattern\n"
+"        recognition problem, which was the main reason for choosing this "
+"type of neural network for implementation in\n"
+"        the project."
 msgstr ""
 "На сегодняшний день сверточные нейронные сети показывают лучшие "
 "результаты в разлчичных соревнованиях, связанных с задачей распознавания "
 "образов, что и послужило основной причиной выбора данного типа нейронной "
 "сети для реализации в проекте."
 
-#: app/templates/index.html:17
+#: app/templates/index.html:27
+#, fuzzy
 msgid ""
 "To get started, click on the button below and upload the image for "
-"recognition. At the moment, the neural network can recognize such objects"
-" on images: PLANE, CAR, BIRD, CAT, DEER, DOG, FROG, HORSE, SHIP, TRUCK. "
-"After the image is uploaded, you will be redirected to the page with the "
-"result of the neural network prediction."
+"recognition. At the moment, the neural\n"
+"        network can recognize such objects on images: PLANE, CAR, BIRD, "
+"CAT, DEER, DOG, FROG, HORSE, SHIP, TRUCK. After\n"
+"        the image is uploaded, you will be redirected to the page with "
+"the result of the neural network prediction."
 msgstr ""
 "Для начала работы нажмите на кнопку ниже и загрузите изображение для "
 "распознавания. На данный момент нейронная сеть умеет распознавать на "
@@ -112,30 +123,35 @@ msgstr ""
 " будете перенаправлены на страницу с результатом предсказания нейронной "
 "сети."
 
-#: app/templates/index.html:20
+#: app/templates/index.html:32
 msgid "Upload Image"
 msgstr "Загрузить изображение"
 
-#: app/templates/index.html:25
+#: app/templates/index.html:37
 msgid "Latest Predictions"
 msgstr "Последние предсказания"
 
-#: app/templates/index.html:36 app/templates/predict.html:10
+#: app/templates/index.html:49 app/templates/predict.html:11
 #, python-format
 msgid "%(predicted)s"
 msgstr ""
 
-#: app/templates/index.html:44
+#: app/templates/index.html:61
 msgid "There are no predictions yet!"
 msgstr "Пока предсказаний нет!"
 
-#: app/templates/predict.html:12
+#: app/templates/predict.html:6 app/templates/predict.html:7
+msgid "Result image"
+msgstr "Результирующее изображение"
+
+#: app/templates/predict.html:9
+#, fuzzy
+msgid "Predictions"
+msgstr "Предсказания"
+
+#: app/templates/predict.html:9
 msgid "Accuracy"
 msgstr "Точность"
-
-#: app/templates/predict.html:16
-msgid "Plot image not found"
-msgstr "Изображение графика не найдено"
 
 #: app/yolov3/config/yolov3_config_voc.py:3
 #, fuzzy
@@ -228,4 +244,7 @@ msgstr "монитор"
 
 #~ msgid "truck"
 #~ msgstr "грузовик"
+
+#~ msgid "Plot image not found"
+#~ msgstr "Изображение графика не найдено"
 
