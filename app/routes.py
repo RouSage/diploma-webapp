@@ -47,12 +47,12 @@ def prediction(img_id):
         pred_img, preds, probs = Tester(model=model, img=img).test()
 
         # Save pred_img to the disk
-        pred_img_filename = f"{image.path.split('.')[0]}_pred.{image.path.split('.')[1]}"
-        cv2.imwrite(os.path.join(app.static_folder,
-                    'img', pred_img_filename), pred_img)
+        # pred_img_filename = f"{image.path.split('.')[0]}_pred.{image.path.split('.')[1]}"
+        # cv2.imwrite(os.path.join(app.static_folder,
+        #             'img', pred_img_filename), pred_img)
 
         # Add pred_img to the image entity
-        image.pred_img_path = pred_img_filename
+        # image.pred_img_path = pred_img_filename
 
         # Get all classes from DB
         classes = Classes.query.all()

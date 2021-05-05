@@ -3,10 +3,8 @@
 <div class="container">
   <div class="prediction-wrap">
     <div class="prediction-img card">
-      <img src="{{ url_for('static', filename=result.img_path) }}" alt="Initial image" title="Initial image" />
-    </div>
-    <div class="prediction-plot card card-secondary">
-      <img src="{{ url_for('static', filename=result.pred_img_path) }}" alt="Predicted image" title="Predicted image" />
+      <img src="{{ url_for('static', filename=result.img_path) }}" alt="{{ _('Result image') }}"
+           title="{{ _('Result image') }}" />
       <div class="prediction-img__container">
         <span>{{ _('Prediction') }} - {{ _('Accuracy') }}:<br>
           {% for pred, prob in result.predicted %}

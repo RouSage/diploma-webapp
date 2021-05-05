@@ -7,8 +7,6 @@ class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     path = db.Column(db.String(200), index=True, unique=True, nullable=False)
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    pred_img_path = db.Column(
-        db.String(200), index=True, unique=True, nullable=True)
 
     prediction = db.relationship('Prediction', backref='image', lazy=True)
 
