@@ -16,7 +16,7 @@ class Tester(object):
         self.__img = img
         self.__classes = cfg.DATA["CLASSES"]
         self.__model = model
-        self.__evaluator = Evaluator(self.__model, visiual=False)
+        self.__evaluator = Evaluator(self.__model)
 
     def test(self):
 

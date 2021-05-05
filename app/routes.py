@@ -41,41 +41,35 @@ def prediction(img_id):
     # Get an Image entity from the database
     image = Image.query.get_or_404(img_id)
 
-    if image.prediction == None:
+    if image.pred_img_path == None:
         # Predict the image's class
         img = cv2.imread(os.path.join(app.static_folder, 'img', image.path))
         pred_img, predicted, probs = Tester(model=model, img=img).test()
-        # predicted, probs = predict(model=model, x=img)
 
         # Save pred_img to the disk
         pred_img_filename = f"{image.path.split('.')[0]}_pred.{image.path.split('.')[1]}"
         cv2.imwrite(os.path.join(app.static_folder,
                     'img', pred_img_filename), pred_img)
 
-        # Add pred_img to the DB
-        image = Image(path=pred_img_filename)
+        # Add pred_img to the image entity
+        image.pred_img_path = pred_img_filename
 
-        # Get all Class from DB
+        # Get all classes from DB
         classes = Classes.query.all()
         # Create new Prediction entity for each object on the given image
         for prob, pred in zip(probs, predicted):
             prediction_data = Prediction(
                 probability=prob, class_id=classes[pred].id, image_id=image.id)
             db.session.add(prediction_data)
-        # Create new Plot entity
-        # plot = Plot(path=plot_probabilities(probs, os.path.join(
-        #     app.static_folder, 'img', image.path.split('.')[0] + '_plot.png')), image_id=image.id)
 
-        # Add all new entities
-        # db.session.add(plot)
-        db.session.add(image)
+        # Add all new entities and commit changes
         db.session.commit()
 
     result = {
         'img_path': 'img/' + image.path,
         'predicted': cfg.DATA['CLASSES'][image.prediction.class_id - 1],
         'prob': image.prediction.probability * 100,
-        'plot_path': 'img/' + image.plot.path
+        'pred_img_path': 'img/' + image.pred_img_path
     }
 
     return render_template('predict.html', title=_('Prediction'), result=result, form=UploadImageForm())

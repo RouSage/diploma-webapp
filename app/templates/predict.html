@@ -1,21 +1,20 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="container">
-    <div class="prediction-wrap">
-        <div class="prediction-img card">
-            <img src="{{ url_for('static', filename=result.img_path) }}" alt="{{ result.predicted }}"
-                title="{{ result.predicted }}" />
-            <div class="prediction-img__container">
-                <span>{{ _('Prediction') }}: <span
-                        class="predicted-class">{{ _('%(predicted)s', predicted=result.predicted) }}</span>
-                </span>
-                <span>{{ _('Accuracy') }}: {{ '%0.4f'| format(result.prob|float)}}</span>
-            </div>
-        </div>
-        <div class="prediction-plot card card-secondary">
-            <img src="{{ url_for('static', filename=result.plot_path) }}" alt="{{ _('Plot image not found') }}" />
-        </div>
+  <div class="prediction-wrap">
+    <div class="prediction-img card">
+      <img src="{{ url_for('static', filename=result.img_path) }}" alt="Initial image" title="Initial image" />
+      <div class="prediction-img__container">
+        <span>{{ _('Prediction') }}:
+          <span class="predicted-class">{{ _('%(predicted)s', predicted=result.predicted) }}</span>
+        </span>
+        <span>{{ _('Accuracy') }}: {{ '%0.4f'| format(result.prob|float)}}</span>
+      </div>
     </div>
+    <div class="prediction-plot card card-secondary">
+      <img src="{{ url_for('static', filename=result.pred_img_path) }}" alt="Predicted image" title="Predicted image" />
+    </div>
+  </div>
 </div>
 
 {% endblock content %}
