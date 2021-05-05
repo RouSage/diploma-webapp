@@ -41,15 +41,15 @@ def prediction(img_id):
     # Get an Image entity from the database
     image = Image.query.get_or_404(img_id)
 
-    if image.pred_img_path == None:
+    if not image.prediction:
         # Predict the image's class
         img = cv2.imread(os.path.join(app.static_folder, 'img', image.path))
         pred_img, preds, probs = Tester(model=model, img=img).test()
 
         # Save pred_img to the disk
         # pred_img_filename = f"{image.path.split('.')[0]}_pred.{image.path.split('.')[1]}"
-        # cv2.imwrite(os.path.join(app.static_folder,
-        #             'img', pred_img_filename), pred_img)
+        cv2.imwrite(os.path.join(app.static_folder,
+                    'img', image.path), pred_img)
 
         # Add pred_img to the image entity
         # image.pred_img_path = pred_img_filename
@@ -71,13 +71,11 @@ def prediction(img_id):
 
     result = {
         'img_path': 'img/' + image.path,
-        'predicted': zip(predicted, probs),
-        'pred_img_path': 'img/' + image.pred_img_path
+        'predicted': zip(predicted, probs)
     }
 
     return render_template('predict.html', title=_('Prediction'), result=result, form=UploadImageForm())
 
 
 def get_latest_predictions():
-    return Image.query.filter(
-        Image.prediction != None).order_by(Image.created.desc())[:3]
+    return Image.query.filter(Image.prediction).order_by(Image.created.desc())[:3]
