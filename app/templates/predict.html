@@ -8,7 +8,7 @@
       <div class="prediction-img__container">
         <span>{{ _('Prediction') }} - {{ _('Accuracy') }}:<br>
           {% for pred, prob in result.predicted %}
-          <span class="predicted-class">{{ _('%(predicted)s', predicted=pred) }} - {{ '%0.2f' | format(prob|float)
+          <span class="predicted-class">{{ _('%(predicted)s', predicted=pred) }} - {{ '%0.2f%%' | format(prob|float)
             }}%</span><br>
           {% endfor %}
         </span>

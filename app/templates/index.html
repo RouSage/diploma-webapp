@@ -38,12 +38,18 @@
       </h3>
       {% if latest %}
       <div class="last-pred-wrap">
-        {% for pred in latest %}
+        {% for img in latest %}
         <div class="last-pred-body">
-          <a href="{{ url_for('prediction', img_id=pred.id) }}" class="last-pred-body__img">
-            <img src="{{ url_for('static', filename='img/' + pred.path) }}">
+          <a href="{{ url_for('prediction', img_id=img.id) }}" class="last-pred-body__img">
+            <img src="{{ url_for('static', filename='img/' + img.path) }}">
           </a>
           <div class="last-pred-body__pred">
+            <span>
+              {% for pred in img.prediction %}
+              <span>{{ _('%(predicted)s', predicted=c[pred.class_id - 1])}}</span>
+              <span>{{ '%0.2f%%' | format(pred.probability * 100 |float)}}</span>
+              {% endfor %}
+            </span>
             <span>{# _('%(predicted)s', predicted=c[pred.prediction.class_id - 1]) #}</span>
             <span>{# '%0.2f%%'| format(pred.prediction.probability * 100|float)#}</span>
           </div>

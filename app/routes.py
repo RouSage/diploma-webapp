@@ -78,4 +78,4 @@ def prediction(img_id):
 
 
 def get_latest_predictions():
-    return Image.query.filter(Image.prediction).order_by(Image.created.desc())[:3]
+    return Image.query.filter(Image.prediction).order_by(Image.created.desc()).all()
