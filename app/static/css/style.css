@@ -226,14 +226,15 @@ label {
   padding: 10px;
   display: flex;
   flex-flow: row nowrap;
+  justify-content: center;
 }
 .prediction-wrap .prediction-img {
-  flex: 2;
   margin-right: 15px;
 }
 .prediction-img img {
   border-radius: 6px;
   max-width: 100%;
+  width: 100%;
   height: auto;
 }
 .prediction-img .prediction-img__container {

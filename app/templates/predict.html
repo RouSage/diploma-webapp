@@ -6,10 +6,10 @@
       <img src="{{ url_for('static', filename=result.img_path) }}" alt="{{ _('Result image') }}"
            title="{{ _('Result image') }}" />
       <div class="prediction-img__container">
-        <span>{{ _('Prediction') }} - {{ _('Accuracy') }}:<br>
+        <span>{{ _('Predictions') }} - {{ _('Accuracy') }}:<br>
           {% for pred, prob in result.predicted %}
           <span class="predicted-class">{{ _('%(predicted)s', predicted=pred) }} - {{ '%0.2f%%' | format(prob|float)
-            }}%</span><br>
+            }}</span><br>
           {% endfor %}
         </span>
       </div>
