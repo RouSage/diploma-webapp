@@ -44,7 +44,7 @@ def prediction(img_id):
     if image.pred_img_path == None:
         # Predict the image's class
         img = cv2.imread(os.path.join(app.static_folder, 'img', image.path))
-        pred_img, predicted, probs = Tester(model=model, img=img).test()
+        pred_img, preds, probs = Tester(model=model, img=img).test()
 
         # Save pred_img to the disk
         pred_img_filename = f"{image.path.split('.')[0]}_pred.{image.path.split('.')[1]}"
@@ -57,7 +57,7 @@ def prediction(img_id):
         # Get all classes from DB
         classes = Classes.query.all()
         # Create new Prediction entity for each object on the given image
-        for prob, pred in zip(probs, predicted):
+        for prob, pred in zip(probs, preds):
             prediction_data = Prediction(
                 probability=prob, class_id=classes[pred].id, image_id=image.id)
             db.session.add(prediction_data)
@@ -65,10 +65,13 @@ def prediction(img_id):
         # Add all new entities and commit changes
         db.session.commit()
 
+    predicted = [cfg.DATA['CLASSES'][pred.class_id - 1]
+                 for pred in image.prediction]
+    probs = [prob.probability * 100 for prob in image.prediction]
+
     result = {
         'img_path': 'img/' + image.path,
-        'predicted': cfg.DATA['CLASSES'][image.prediction.class_id - 1],
-        'prob': image.prediction.probability * 100,
+        'predicted': zip(predicted, probs),
         'pred_img_path': 'img/' + image.pred_img_path
     }
 
