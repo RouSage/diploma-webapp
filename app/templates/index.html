@@ -32,28 +32,17 @@
         <button class="btn btn-primary" id="loadImageBtn">{{ _('Upload Image') }}</button>
       </div>
     </section>
-    <aside class="last-pred card card-secondary">
-      <h3 class="card-title">
+    <hr />
+    <section class="last-pred">
+      <h3>
         {{ _('Latest Predictions') }}
       </h3>
       {% if latest %}
       <div class="last-pred-wrap">
         {% for img in latest %}
-        <div class="last-pred-body">
-          <a href="{{ url_for('prediction', img_id=img.id) }}" class="last-pred-body__img">
-            <img src="{{ url_for('static', filename='img/' + img.path) }}">
-          </a>
-          <div class="last-pred-body__pred">
-            <span>
-              {% for pred in img.prediction %}
-              <span>{{ _('%(predicted)s', predicted=c[pred.class_id - 1])}}</span>
-              <span>{{ '%0.2f%%' | format(pred.probability * 100 |float)}}</span>
-              {% endfor %}
-            </span>
-            <span>{# _('%(predicted)s', predicted=c[pred.prediction.class_id - 1]) #}</span>
-            <span>{# '%0.2f%%'| format(pred.prediction.probability * 100|float)#}</span>
-          </div>
-        </div>
+        <a href="{{ url_for('prediction', img_id=img.id) }}" class="last-pred__img">
+          <img src="{{ url_for('static', filename='img/' + img.path) }}">
+        </a>
         {% endfor %}
       </div>
       {% else %}
@@ -61,7 +50,7 @@
         {{ _('There are no predictions yet!') }}
       </p>
       {% endif %}
-    </aside>
+    </section>
   </div>
 </div>
 {% endblock content %}
