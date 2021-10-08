@@ -50,8 +50,9 @@ def prediction(img_id):
         prediction_data = Prediction(probability=torch.max(probs, dim=0)[
             0].item(), class_id=pred_class.id, image_id=image.id)
         # Create new Plot entity
-        plot = Plot(path=plot_probabilities(probs, os.path.join(
-            app.static_folder, 'img', image.path.split('.')[0] + '_plot.png')), image_id=image.id)
+        plot_filename = image.path.split('.')[0] + '_plot.png'
+        plot_probabilities(probs, os.path.join(app.static_folder, 'img', plot_filename))
+        plot = Plot(path=plot_filename, image_id=image.id)
 
         # Add all new entities
         db.session.add(prediction_data)

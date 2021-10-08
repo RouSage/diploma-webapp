@@ -1,10 +1,10 @@
+import matplotlib.pyplot as plt
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torchvision import transforms
-import matplotlib.pyplot as plt
-import numpy as np
 from flask_babel import lazy_gettext as _l
+from torchvision import transforms
 
 
 class CNN(nn.Module):
@@ -117,5 +117,3 @@ def plot_probabilities(probs, filename):
 
     fig.savefig(filename, format="png")
     plt.close
-
-    return filename.split('\\')[-1]
